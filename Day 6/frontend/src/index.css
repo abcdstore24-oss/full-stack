@@ -1,0 +1,403 @@
+:root {
+  --ink: #0e2f2c;
+  --ink-2: #1c4a45;
+  --paper: #edf1ee;
+  --card: #ffffff;
+  --saffron: #f0a030;
+  --credit: #1f7a4d;
+  --debit: #b4441f;
+  --line: #d5ddd8;
+  --muted: #5d6f6a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "DM Sans", system-ui, sans-serif;
+  line-height: 1.5;
+}
+
+h1,
+h2,
+.brand,
+.big,
+.pb-balance {
+  font-family: "Bricolage Grotesque", sans-serif;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  margin: 0.4rem 0 0.8rem;
+}
+
+h2 {
+  font-size: 1.3rem;
+  margin: 2rem 0 0.8rem;
+}
+
+a {
+  color: var(--ink-2);
+}
+
+:focus-visible {
+  outline: 3px solid var(--saffron);
+  outline-offset: 2px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  padding: 0.9rem clamp(1rem, 4vw, 3rem);
+  background: var(--ink);
+}
+
+.brand {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 1.5rem;
+}
+
+.topbar nav {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.topbar nav a {
+  color: #cfe0db;
+  text-decoration: none;
+  padding: 0.4rem 0.85rem;
+  border-radius: 99px;
+  font-weight: 500;
+}
+
+.topbar nav a.active {
+  background: var(--ink-2);
+  color: #fff;
+}
+
+.topbar nav a.pill {
+  background: var(--saffron);
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.page {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: clamp(1rem, 4vw, 2.5rem);
+}
+
+.hero {
+  padding: 1rem 0 1.5rem;
+}
+
+.big {
+  font-size: clamp(2.6rem, 9vw, 4.8rem);
+  font-weight: 800;
+  margin: 0;
+  line-height: 1;
+}
+
+.muted {
+  color: var(--muted);
+  margin: 0.2rem 0 1rem;
+}
+
+/* The passbook card is the one memorable element */
+.passbook {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--ink) 0%, var(--ink-2) 100%);
+  color: #fff;
+  border-radius: 18px;
+  padding: 1.4rem 1.5rem;
+  min-height: 190px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 14px 30px -14px rgba(14, 47, 44, 0.7);
+}
+
+.passbook::after {
+  content: "";
+  position: absolute;
+  right: -30px;
+  top: 0;
+  bottom: 0;
+  width: 70px;
+  background: var(--saffron);
+  transform: skewX(-14deg);
+  opacity: 0.95;
+}
+
+.chip {
+  width: 40px;
+  height: 30px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #f7d58b, #d19a3a);
+}
+
+.pb-number {
+  margin: 0.8rem 0 0;
+  letter-spacing: 0.12em;
+  color: #b9d0ca;
+  font-variant-numeric: tabular-nums;
+}
+
+.pb-balance {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.pb-holder {
+  margin: 0;
+  color: #e4efec;
+  font-weight: 500;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.2rem;
+}
+
+.card-link {
+  text-decoration: none;
+  transition: transform 0.15s;
+}
+
+.card-link:hover {
+  transform: translateY(-3px);
+}
+
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.panel {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: clamp(1.1rem, 3vw, 1.8rem);
+}
+
+.narrow {
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+label {
+  display: block;
+  font-weight: 500;
+  margin: 0.9rem 0;
+}
+
+label.inline {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+input,
+select {
+  display: block;
+  width: 100%;
+  margin-top: 0.3rem;
+  padding: 0.7rem 0.8rem;
+  font: inherit;
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  background: #fafcfb;
+  color: var(--ink);
+}
+
+label.inline select {
+  width: auto;
+  margin: 0;
+}
+
+input:focus,
+select:focus {
+  border-color: var(--ink-2);
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.4rem;
+  font: inherit;
+  font-weight: 700;
+  border: 2px solid var(--ink);
+  border-radius: 10px;
+  background: var(--ink);
+  color: #fff;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: var(--ink-2);
+}
+
+.btn.ghost {
+  background: transparent;
+  color: var(--ink);
+}
+
+.btn.ghost:hover {
+  background: var(--paper);
+}
+
+.row {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.row.links {
+  gap: 1.4rem;
+}
+
+.msg {
+  padding: 0.65rem 0.9rem;
+  border-radius: 10px;
+  font-weight: 500;
+  margin: 0.6rem 0;
+}
+
+.msg.error {
+  background: #fbe9e2;
+  color: var(--debit);
+  border-left: 4px solid var(--debit);
+}
+
+.msg.ok {
+  background: #e1f3e9;
+  color: var(--credit);
+  border-left: 4px solid var(--credit);
+}
+
+.credit {
+  color: var(--credit);
+}
+
+.debit {
+  color: var(--debit);
+}
+
+.activity {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+
+.activity li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem 1.1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.activity li:last-child {
+  border: 0;
+}
+
+.activity small {
+  display: block;
+  color: var(--muted);
+}
+
+.table-wrap {
+  overflow-x: auto;
+  margin-top: 1rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 480px;
+}
+
+th,
+td {
+  padding: 0.7rem 0.6rem;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+}
+
+th {
+  color: var(--muted);
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.receipt {
+  border-top: 5px solid var(--credit);
+}
+
+.receipt h2 {
+  margin-top: 0;
+}
+
+dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.4rem 1rem;
+}
+
+dt {
+  color: var(--muted);
+}
+
+dd {
+  margin: 0;
+}
+
+.empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  background: var(--card);
+  border: 1px dashed var(--line);
+  border-radius: 14px;
+}
+
+.empty .btn {
+  margin-top: 0.6rem;
+}
+
+@media (max-width: 760px) {
+  .split {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
