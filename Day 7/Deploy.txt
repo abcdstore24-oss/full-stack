@@ -1,0 +1,13 @@
+DATABASE - Aiven (FREE FOR MYSQL)
+FRONTEND - RENDER
+BACKEND - RENDER
+
+.env
+Frontend - VITE_API_URL
+Backend - Database Credentials
+
+Frontend - Static Website
+Backend - Web Service
+
+Frontend - npm i; npm run build; dist (folder)
+Backend - npm i; npm run start;
