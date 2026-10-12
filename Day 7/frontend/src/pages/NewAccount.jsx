@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createAccount } from "../services/bankService.js";
 import Message from "../components/Message.jsx";
 
 export default function NewAccount() {
