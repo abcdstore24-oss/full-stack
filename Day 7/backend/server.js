@@ -10,11 +10,11 @@ require("dotenv").config();
 
 async function startServer(){
   const db = await mysql.createConnection({
-    host: process.env.HOST,
-    port: process.env.PORT,
-    user: process.env.USER,
-    password: process.env.PASSWORD,
-    database: process.env.DATABASE
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
   })
   console.log("Database connected")
 
@@ -195,7 +195,10 @@ async function startServer(){
     res.json(rows)
   })
 
-  app.listen(8000, () => console.log("Server running on port 8000"));
+  const PORT = process.env.PORT || 8000;
+  app.listen(PORT, "0.0.0.0", () => {
+    console.log(`Server running on port ${PORT}`);
+  });
 }
 
 startServer();
