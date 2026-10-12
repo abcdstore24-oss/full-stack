@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
 import Message from "../components/Message.jsx";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function Transfer() {
   const location = useLocation();
@@ -14,7 +15,7 @@ export default function Transfer() {
   useEffect(() => {
     const getAccount =async () => {
       try {
-        const response = await fetch("http://localhost:8000/accounts", {
+        const response = await fetch(`${API_URL}/accounts`, {
           method: "GET",
           headers: { "Content-Type": "application/json" },
         });
@@ -30,7 +31,7 @@ export default function Transfer() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:8000/transfer", {
+      const response = await fetch(`${API_URL}/transfer`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ from,to, amountInput:amount }),

@@ -8,6 +8,7 @@ const TYPE_LABELS = {
   TRANSFER_OUT: "Transfer sent",
   TRANSFER_IN: "Transfer received",
 };
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function Statement() {
   const { accountNumber } = useParams();
@@ -18,7 +19,7 @@ export default function Statement() {
   useEffect(() => {
     const getAccount =async () => {
       try {
-        const response = await fetch(`http://localhost:8000/accounts/${accountNumber}`, {
+        const response = await fetch(`${API_URL}/accounts/${accountNumber}`, {
           method: "GET",
           headers: { "Content-Type": "application/json" },
         });
@@ -32,7 +33,7 @@ export default function Statement() {
     const getTransactions = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8000/accounts/${accountNumber}/transactions`,
+          `${API_URL}/accounts/${accountNumber}/transactions`,
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },

@@ -4,17 +4,20 @@ import AccountCard from "../components/AccountCard.jsx";
 import Message from "../components/Message.jsx";
 import NotFound from "./NotFound.jsx";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function AccountDetail() {
   const { accountNumber } = useParams();
   const [account, setAccount] = useState(null); // null = loading, false = missing
   const [amount, setAmount] = useState("");
   const [msg, setMsg] = useState(null);
 
+
   useEffect(() => {
     const getAccount = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8000/accounts/${accountNumber}`,
+          `${API_URL}/accounts/${accountNumber}`,
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },
@@ -39,7 +42,7 @@ export default function AccountDetail() {
 
   const run = async (type, label) => {
     try{
-      const response = await fetch(`http://localhost:8000/accounts/${accountNumber}/${type}`, {
+      const response = await fetch(`${API_URL}/accounts/${accountNumber}/${type}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({amount}),

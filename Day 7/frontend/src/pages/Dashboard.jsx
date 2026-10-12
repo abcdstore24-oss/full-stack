@@ -8,6 +8,7 @@ const TYPE_LABELS = {
   TRANSFER_OUT: "Transfer sent",
   TRANSFER_IN: "Transfer received",
 };
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function Dashboard() {
   const [accounts, setAccounts] = useState([]);
@@ -15,7 +16,7 @@ export default function Dashboard() {
   useEffect(() => {
     const getAccount =async () => {
       try {
-        const response = await fetch("http://localhost:8000/accounts", {
+        const response = await fetch(`${API_URL}/accounts`, {
           method: "GET",
           headers: { "Content-Type": "application/json" },
         });
@@ -27,7 +28,7 @@ export default function Dashboard() {
     } 
     const getRecent =async () => {
       try {
-        const response = await fetch("http://localhost:8000/transactions/recent", {
+        const response = await fetch(`${API_URL}/transactions/recent`, {
           method: "GET",
           headers: { "Content-Type": "application/json" },
         });

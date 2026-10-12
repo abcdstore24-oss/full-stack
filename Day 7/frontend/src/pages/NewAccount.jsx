@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Message from "../components/Message.jsx";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function NewAccount() {
   const [name, setName] = useState("");
@@ -11,7 +12,7 @@ export default function NewAccount() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:8000/accounts", {
+      const response = await fetch(`${API_URL}/accounts`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, amount: opening }),
