@@ -6,14 +6,15 @@ const mysql = require('mysql2/promise')
 
 app.use(cors());
 app.use(express.json());
-
+require("dotenv").config();
 
 async function startServer(){
   const db = await mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "omprasad",
-    database: "bank_app"
+    host: process.env.HOST,
+    port: process.env.PORT,
+    user: process.env.USER,
+    password: process.env.PASSWORD,
+    database: process.env.DATABASE
   })
   console.log("Database connected")
 
