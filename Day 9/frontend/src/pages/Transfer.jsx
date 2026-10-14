@@ -1,0 +1,114 @@
+import { useState, useEffect } from "react";
+import { useLocation, Link } from "react-router-dom";
+import Message from "../components/Message.jsx";
+const API_URL = import.meta.env.VITE_API_URL;
+
+export default function Transfer() {
+  const location = useLocation();
+  const [accounts, setAccounts] = useState([]);
+  const [from, setFrom] = useState(location.state?.from || "");
+  const [to, setTo] = useState("");
+  const [amount, setAmount] = useState("");
+  const [msg, setMsg] = useState(null);
+  const [result, setResult] = useState(null);
+
+  useEffect(() => {
+    const getAccount =async () => {
+      const token = localStorage.getItem("token")
+      try {
+        const response = await fetch(`${API_URL}/accounts`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json", Authorization:`Bearer ${token}`},
+
+        });
+        const data = await response.json();
+        setAccounts(data)
+      } catch (err) {
+        console.log(err.message)
+      }
+    } 
+    getAccount();
+  }, [result]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(`${API_URL}/transfer`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ from,to, amountInput:amount }),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error);
+      }
+      setResult(data);
+      console.log(data)
+      setMsg(null);
+      setTo("");
+      setAmount("");
+    } catch (err) {
+      setResult(null);
+      setMsg({ ok: false, text: err.message });
+    }
+  };
+
+  return (
+    <div className="split">
+      <form className="panel" onSubmit={handleSubmit}>
+        <h1>Transfer money</h1>
+        <label>
+          From
+          <select value={from} onChange={(e) => setFrom(e.target.value)}>
+            <option value="">Choose an account</option>
+            {accounts.map((a) => (
+              <option key={a.account_number} value={a.account_number}>
+                {a.name} · {a.account_number} · ₹ {a.balance}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          Destination account number
+          <input
+            value={to}
+            onChange={(e) => setTo(e.target.value)}
+            inputMode="numeric"
+            placeholder="10-digit number"
+          />
+        </label>
+        <label>
+          Amount (₹)
+          <input
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            inputMode="decimal"
+            placeholder="500"
+          />
+        </label>
+        <Message msg={msg} />
+        <button className="btn">Send money</button>
+      </form>
+
+      {result && (
+        <div className="panel receipt">
+          <h2>Transfer complete</h2>
+          <p className="big credit">₹{result.amount}</p>
+          <dl>
+            <dt>From</dt>
+            <dd>
+              {result.from}
+            </dd>
+            <dt>To</dt>
+            <dd>
+              {result.to}
+            </dd>
+            <dt>Time</dt>
+            <dd>{new Date(result.timeStamp).toLocaleString()}</dd>
+          </dl>
+          <Link to={`/accounts/${result.from}/statement`}>View statement</Link>
+        </div>
+      )}
+    </div>
+  );
+}
