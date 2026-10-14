@@ -1,0 +1,25 @@
+CREATE DATABASE bank_app;
+use bank_app;
+CREATE TABLE accounts(
+	id INT AUTO_INCREMENT PRIMARY KEY, 
+    name VARCHAR(100) NOT NULL,
+    account_number VARCHAR(10) UNIQUE NOT NULL,
+    balance DECIMAL(10,2) DEFAULT 0
+);
+
+
+CREATE TABLE transactions(
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	account_number VARCHAR(100) NOT NULL,
+    type VARCHAR(20) NOT NULL,
+    amount DECIMAL(10,2) NOT NULL,
+    balance_after DECIMAL(10,2) NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE users(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(40) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(255) UNIQUE NOT NULL
+)
